@@ -1,0 +1,48 @@
+<% if flash[:message] %>
+  <div>
+  	<%= flash[:message] %>
+  </div>
+<% end %>
+<% if book.errors.any? %>
+  <h3><%= book.errors.count %>errors prohibited this obj from being saved:</h3>
+  <ul>
+  	<% book.errors.full_messages.each do |message| %>
+  	<li><%= message %></li>
+  	<% end %>
+  </ul>
+ <% end %>
+ <div class="col-xs-3">
+  <h3>User info</h3>
+  <%= attachment_image_tag user, :profile_image, :fill,100,100, size: "100×100", format:"jpeg", fallback: "no_image.jpg" %>
+  <table class="table">
+  	<tbody>
+  		<tr>
+  		  <th>Name</th>
+  		  <th><%= user.name %></th>
+  		</tr>
+  		<tr>
+  		  <th>Introduction</th>
+  		  <th><%= user.introduction %></th>
+  		</tr>
+  	</tbody>
+  </table>
+  <% if user.id == current_user.id %>
+    <div class="row">
+      <%= link_to "a", edit_user_path(user),class:"col-xs-12 btn btn-default" %>
+    </div>
+  <% end %>
+  <h2>New book</h2>
+  <%= form_for [book] do |f| %>
+    <div class="field row">
+      <label>Title</label>
+      <%= f.text_field :title,class:"col-xs-12 book_title" %>
+    </div>
+    <div class="field row">
+      <label>Opinion</label>
+      <%= f.text_area :body,class:"col-xs-12 book_body" %>
+    </div>
+    <div class="actions row">
+      <%= f.submit "Create Book",class:"btn btn-primary col-xs-12"%>
+    </div>
+  <% end %>
+ </div>

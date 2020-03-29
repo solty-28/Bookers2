@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <%= render 'books/list', user: @user,book: @book %>
+    <div class="col-xs-9">
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <tr>
+            <th>
+              <%= link_to attachment_image_tag(@books.user, :profile_image, size: "100×100"),user_path(@books.user_id) %><br>
+              <%= link_to @books.user.name,user_path(@books.user_id) %>
+            </th>
+            <td><%= @books.title %></td>
+            <td><%= @books.body %></td>
+            <% if @books.user_id == current_user.id %>
+              <%= link_to "Edit", edit_book_path(@books) %>
+              <%= link_to "Destroy", book_path(@books), method: :delete %>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+ 
+
